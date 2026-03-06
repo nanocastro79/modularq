@@ -330,7 +330,7 @@
         <li>Priority updates</li>
         <li>Co-authorship opportunities</li>
       </ul>
-      <button class="btn-primary" onclick="copyEmailBtn(this)" style="display:inline-flex;">✉ Copy email →</button>
+      <a id="emailBtn1" class="btn-primary" style="display:inline-flex;">✉ Contact us →</a>
     </div>
     <div class="pricing-card">
       <div class="pricing-label">Consulting</div>
@@ -343,7 +343,7 @@
         <li>Team training</li>
         <li>Ongoing support</li>
       </ul>
-      <button class="btn-secondary" onclick="copyEmailBtn(this)" style="display:inline-flex;">✉ Copy email →</button>
+      <a id="emailBtn2" class="btn-secondary" style="display:inline-flex;">✉ Get in touch →</a>
     </div>
   </div>
 </section>
@@ -353,10 +353,7 @@
     <div class="section-label">// Contact</div>
     <h2>Ready to improve<br>your measurement pipeline?</h2>
     <p style="color: var(--muted); margin-top: 16px; line-height: 1.7;">Whether you're running VQE, benchmarking backends, or building quantum software — modularq adds a physically grounded diagnostics layer to your existing workflow.</p>
-    <div class="email-box">
-      <span id="emailText">cb&#64;balfagonresearch.org</span>
-      <button class="copy-btn" onclick="copyMainEmail(this)">COPY</button>
-    </div>
+    <a id="emailMain" class="email-box" style="text-decoration:none; cursor:pointer;">cb&#64;balfagonresearch.org</a>
     <br>
     <a href="https://github.com/nanocastro79/modularq" class="btn-primary">↗ View on GitHub</a>
   </div>
@@ -373,22 +370,11 @@
 
 <script>
   const EMAIL = 'cb' + '@' + 'balfagonresearch.org';
+  const mailtoLink = 'mail' + 'to:' + EMAIL;
 
-  function copyMainEmail(btn) {
-    navigator.clipboard.writeText(EMAIL).then(() => {
-      btn.textContent = '✓ COPIED';
-      btn.classList.add('copied');
-      setTimeout(() => { btn.textContent = 'COPY'; btn.classList.remove('copied'); }, 2000);
-    });
-  }
-
-  function copyEmailBtn(btn) {
-    navigator.clipboard.writeText(EMAIL).then(() => {
-      const orig = btn.innerHTML;
-      btn.innerHTML = '✓ Email copied!';
-      setTimeout(() => { btn.innerHTML = orig; }, 2000);
-    });
-  }
+  document.getElementById('emailMain').href = mailtoLink;
+  document.getElementById('emailBtn1').href = mailtoLink;
+  document.getElementById('emailBtn2').href = mailtoLink;
 
   const cursor = document.getElementById('cursor');
   const ring = document.getElementById('cursorRing');
