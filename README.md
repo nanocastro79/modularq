@@ -97,4 +97,9 @@ Los experimentos originales están disponibles en Zenodo:
 
 ## Licencia
 
-MIT License — libre para uso académico y comercial.
+**Uso académico y no comercial:** libre y gratuito bajo los términos de esta licencia.
+
+**Uso comercial:** requiere acuerdo de licencia separado.  
+Contacto: lyosranch@gmail.com
+
+© 2025 Christian Balfagón and contributors.
