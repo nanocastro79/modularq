@@ -6,7 +6,7 @@ Una librería Python que implementa diagnóstico y corrección de no-equilibrio 
 
 > Balfagón, C. (2025). *A Modular Software Stack for Quantum Computing: From Born-Rule Equilibrium to Nonequilibrium-Aware Quantum Software*. Universidad de Buenos Aires.
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/TU_USUARIO/modularq/blob/main/demo_colab.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/nanocastro79/modularq/blob/main/demo_colab.ipynb)
 
 ---
 
@@ -28,7 +28,7 @@ pip install numpy scipy matplotlib
 O en Google Colab:
 
 ```python
-!wget https://raw.githubusercontent.com/TU_USUARIO/modularq/main/modularq.py
+!wget https://raw.githubusercontent.com/nanocastro79/modularq/main/modularq.py
 from modularq import ModularAnalyzer
 ```
 
@@ -100,6 +100,6 @@ Los experimentos originales están disponibles en Zenodo:
 **Uso académico y no comercial:** libre y gratuito bajo los términos de esta licencia.
 
 **Uso comercial:** requiere acuerdo de licencia separado.  
-Contacto: lyosranch@gmail.com
+Contacto: cb@balfagonresearch.org
 
-© 2025 Christian Balfagón and contributors.
+© 2025 Christian H. Balfagón and Mariano M. Castro.
