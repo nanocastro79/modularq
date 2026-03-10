@@ -10,6 +10,10 @@ Uso en Google Colab:
     from modularq import ModularAnalyzer
 
 Autores: C. Balfagón (framework teórico) — Implementación open-source
+
+Changelog:
+  v1.1 — Fix umbrales MIS contradictorios entre docstring y classify_regime
+       — Fix recomendación final unificada (MIS + AIC juntos)
 """
 
 import numpy as np
@@ -123,9 +127,12 @@ def modular_imbalance_score(deltaK: Dict[str, float]) -> float:
     MIS = (1/|O|) * sum_i |deltaK_i|
 
     Interpretación:
-    - MIS ~ 0      → régimen KMS/Born válido (medición confiable)
-    - MIS > 0.05   → no-equilibrio perturbativo (corrección leve)
+    - MIS < 0.05   → régimen KMS/Born válido (medición confiable)
+    - 0.05–0.15    → no-equilibrio perturbativo (posible corrección)
     - MIS > 0.15   → no-KMS fuerte (corrección necesaria)
+
+    NOTA: estos umbrales son indicativos. La recomendación final
+    siempre se determina combinando MIS + comparación AIC.
 
     Parámetros
     ----------
@@ -150,6 +157,15 @@ def classify_regime(mis: float) -> Tuple[str, str]:
     Clasifica el régimen de medición según el MIS.
     Capa 3 del stack (Sección 3.4 del paper).
 
+    IMPORTANTE: esta función solo clasifica el régimen físico.
+    La recomendación final (si aplicar corrección o no) se determina
+    combinando este resultado con la comparación AIC en summary().
+
+    Umbrales (consistentes con modular_imbalance_score):
+    - MIS < 0.05   → KMS_BALANCED
+    - 0.05–0.15    → PERTURBATIVE_NEQ
+    - MIS > 0.15   → NON_KMS
+
     Parámetros
     ----------
     mis : float
@@ -159,15 +175,15 @@ def classify_regime(mis: float) -> Tuple[str, str]:
     -------
     tuple : (régimen, descripción)
     """
-    if mis < 0.02:
+    if mis < 0.05:
         return ("KMS_BALANCED",
-                "✅ Born válido: las estadísticas son confiables sin corrección.")
-    elif mis < 0.10:
+                "No-equilibrio no detectado (Born posiblemente válido).")
+    elif mis < 0.15:
         return ("PERTURBATIVE_NEQ",
-                "⚠️  No-equilibrio perturbativo: corrección modular leve recomendada.")
+                "No-equilibrio perturbativo detectado.")
     else:
         return ("NON_KMS",
-                "🔴 No-KMS fuerte: corrección modular necesaria para resultados confiables.")
+                "No-KMS fuerte detectado.")
 
 
 # ─────────────────────────────────────────────
@@ -366,8 +382,8 @@ class ModularAnalyzer:
         eps : float
             Parámetro de regularización (default: 1e-6)
         mode : str
-            'auto'  → aplica corrección si AIC lo favorece
-            'born'  → fuerza Born (sin corrección)
+            'auto'    → aplica corrección solo si AIC lo favorece
+            'born'    → fuerza Born (sin corrección)
             'modular' → fuerza corrección modular siempre
         """
         self.eps = eps
@@ -452,6 +468,22 @@ class ModularResult:
 
     def summary(self) -> str:
         """Resumen legible de los resultados."""
+
+        # Recomendación final unificada (MIS + AIC)
+        preferred = self.model_comparison['preferred_model']
+        strength  = self.model_comparison['evidence_strength']
+
+        if self.mode == "born":
+            recomendacion = "→ RECOMENDACIÓN: Born forzado por el usuario."
+        elif self.mode == "modular":
+            recomendacion = "→ RECOMENDACIÓN: Corrección modular forzada por el usuario."
+        elif preferred == "MODULAR":
+            recomendacion = f"→ RECOMENDACIÓN: usar probabilidades corregidas (Modular) — evidencia {strength}."
+        elif preferred == "BORN":
+            recomendacion = f"→ RECOMENDACIÓN: usar probabilidades Born (sin corrección) — evidencia {strength}."
+        else:
+            recomendacion = "→ RECOMENDACIÓN: evidencia insuficiente para preferir un modelo. Usar Born por defecto."
+
         lines = [
             "=" * 55,
             "  MODULAR SOFTWARE STACK — Resultados",
@@ -459,7 +491,7 @@ class ModularResult:
             f"  Shots totales     : {self.N_shots:,}",
             f"  Epsilon (reg.)    : {self.eps}",
             f"  MIS               : {self.mis:.4f}",
-            f"  Régimen           : {self.regime}",
+            f"  Régimen físico    : {self.regime}",
             f"  {self.regime_description}",
             "-" * 55,
             "  Probabilidades por resultado:",
@@ -480,6 +512,8 @@ class ModularResult:
             f"  ΔAIC (Born-Mod)   : {self.model_comparison['delta_AIC']}",
             f"  Modelo preferido  : {self.model_comparison['preferred_model']}",
             f"  Evidencia         : {self.model_comparison['evidence_strength']}",
+            "-" * 55,
+            f"  {recomendacion}",
             "=" * 55,
         ]
         return "\n".join(lines)
