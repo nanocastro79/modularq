@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "modularq"
+version = "1.1.0"
+description = "Modular Software Stack for Quantum Computing — measurement diagnostics and correction"
+readme = "README.md"
+license = {file = "LICENSE"}
+authors = [
+    {name = "Christian H. Balfagon", email = "cb@balfagonresearch.org"},
+    {name = "Mariano M. Castro"}
+]
+keywords = ["quantum computing", "qiskit", "measurement", "NISQ", "Born rule"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Physics",
+    "Intended Audience :: Science/Research"
+]
+requires-python = ">=3.9"
+dependencies = [
+    "numpy>=1.24",
+    "scipy>=1.10"
+]
+
+[project.optional-dependencies]
+qiskit = ["qiskit>=1.0", "qiskit-ibm-runtime>=0.20"]
+
+[project.urls]
+Homepage = "https://nanocastro79.github.io/modularq/"
+Repository = "https://github.com/nanocastro79/modularq"
