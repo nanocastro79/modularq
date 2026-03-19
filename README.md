@@ -6,6 +6,7 @@ Una librería Python que implementa diagnóstico y corrección de no-equilibrio 
 
 > Balfagón, C. (2025). *A Modular Software Stack for Quantum Computing: From Born-Rule Equilibrium to Nonequilibrium-Aware Quantum Software*. Universidad de Buenos Aires.
 
+[![PyPI version](https://badge.fury.io/py/modularq.svg)](https://pypi.org/project/modularq/)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/nanocastro79/modularq/blob/main/demo_colab.ipynb)
 
 ---
@@ -19,23 +20,19 @@ Las computadoras cuánticas NISQ operan como sistemas abiertos y ruidosos. Las e
 ---
 
 ## Instalación
-
 ```bash
-pip install numpy scipy matplotlib
-# Luego descargá modularq.py desde este repo
+pip install modularq
 ```
 
-O en Google Colab:
-
+En Google Colab:
 ```python
-!wget https://raw.githubusercontent.com/nanocastro79/modularq/main/modularq.py
+!pip install modularq
 from modularq import ModularAnalyzer
 ```
 
 ---
 
 ## Uso básico
-
 ```python
 import numpy as np
 from modularq import ModularAnalyzer
@@ -80,9 +77,9 @@ Métrica escalar que indica la validez del Born rule:
 
 | MIS | Régimen | Acción |
 |-----|---------|--------|
-| < 0.02 | ✅ KMS-balanced | Ninguna (Born válido) |
-| 0.02 – 0.10 | ⚠️ Perturbativo | Corrección leve |
-| > 0.10 | 🔴 No-KMS | Corrección necesaria |
+| < 0.05 | ✅ KMS-balanced | Ninguna (Born válido) |
+| 0.05 – 0.15 | ⚠️ Perturbativo | Corrección leve |
+| > 0.15 | 🔴 No-KMS | Corrección necesaria |
 
 ---
 
