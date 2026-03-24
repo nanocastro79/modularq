@@ -20,11 +20,13 @@ Las computadoras cuánticas NISQ operan como sistemas abiertos y ruidosos. Las e
 ---
 
 ## Instalación
+
 ```bash
 pip install modularq
 ```
 
 En Google Colab:
+
 ```python
 !pip install modularq
 from modularq import ModularAnalyzer
@@ -33,6 +35,7 @@ from modularq import ModularAnalyzer
 ---
 
 ## Uso básico
+
 ```python
 import numpy as np
 from modularq import ModularAnalyzer
@@ -89,6 +92,21 @@ Los experimentos originales están disponibles en Zenodo:
 - DOI: [10.5281/zenodo.18066279](https://doi.org/10.5281/zenodo.18066279)
 - Hardware: IBM Quantum (ibm_marrakesh, ibm_fez, ibm_torino)
 - Circuitos: Bell (2q) y GHZ (3q)
+
+### Verificación independiente (2026)
+
+Experimentos de verificación corridos en ibm_fez con tomografía de estado real:
+
+| Circuito | Qubits | MIS | Régimen | Modelo preferido |
+|---|---|---|---|---|
+| Hadamard | 1 | 0.0266 – 0.1433 | PERTURBATIVE_NEQ | BORN |
+| Bell | 2 | 1.2769 | NON_KMS | MODULAR (ΔAIC=1739) |
+| GHZ | 3 | 2.5366 | NON_KMS | MODULAR (ΔAIC=4725) |
+
+El MIS escala con la complejidad del circuito, confirmando que el desequilibrio
+detectado por modularq aumenta con el número de qubits entrelazados.
+
+Datos completos en [`resultados_modularq.csv`](resultados_modularq.csv).
 
 ---
 
