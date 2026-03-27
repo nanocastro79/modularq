@@ -8,3 +8,9 @@ fase1_verificacion,2026-03-10,ibm_fez,Hadamard,1,2000,0.0266,PERTURBATIVE_NEQ,BO
 fase2_bell_ghz,2026-03-23,ibm_fez,Hadamard,1,2000,0.1433,PERTURBATIVE_NEQ,BORN,-64.69,0.5000,0.4288,0.5190,fase 2 - circuitos multiqubit
 fase2_bell_ghz,2026-03-23,ibm_fez,Bell,2,2000,1.2769,NON_KMS,MODULAR,1738.98,0.2500,0.5287,0.4735,estado entrelazado 2 qubits
 fase2_bell_ghz,2026-03-23,ibm_fez,GHZ,3,2000,2.5366,NON_KMS,MODULAR,4725.14,0.1250,0.4742,0.5095,estado entrelazado 3 qubits
+fase2_multi_backend,2026-03-26,ibm_marrakesh,Hadamard,1,2000,0.0181,KMS_BALANCED,,,0.5000,,verificacion multi-backend - detalle AIC pendiente
+fase2_multi_backend,2026-03-26,ibm_marrakesh,Bell,2,2000,1.3133,NON_KMS,,,0.2500,,verificacion multi-backend - detalle AIC pendiente
+fase2_multi_backend,2026-03-26,ibm_marrakesh,GHZ,3,2000,2.4470,NON_KMS,,,0.1250,,verificacion multi-backend - detalle AIC pendiente
+fase2_multi_backend,2026-03-26,ibm_torino,Hadamard,1,2000,0.0285,KMS_BALANCED,EMPATE,-1.8,0.5000,0.5143,0.5080,Heron r1
+fase2_multi_backend,2026-03-26,ibm_torino,Bell,2,2000,0.8977,NON_KMS,MODULAR,1408.21,0.2500,0.4614,0.4825,Heron r1
+fase2_multi_backend,2026-03-26,ibm_torino,GHZ,3,2000,1.9901,NON_KMS,MODULAR,4377.28,0.1250,0.4958,0.5125,Heron r1
